@@ -1,0 +1,75 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+<title>小展示1</title>
+{% endblock %}
+{% block content %}
+<table id="datatable" style="margin-left:20px;" class="table table-bordered table-striped"> 
+	<thead> 
+		<tr> 
+			<th>水果</th> 
+			<th>高远</th> 
+			<th>赵光</th> 
+		</tr> 
+	</thead> 
+	<tbody> 
+		<tr> 
+			<th>苹果</th> 
+			<td>3</td> 
+			<td>4</td> 
+		</tr> 
+		<tr> 
+			<th>梨子</th> 
+			<td>2</td> 
+			<td>0</td> 
+		</tr> 
+		<tr> 
+			<th>柠檬</th> 
+			<td>5</td> 
+			<td>11</td> 
+		</tr> 
+		<tr> 
+			<th>香蕉</th> 
+			<td>1</td> 
+			<td>1</td> 
+		</tr> 
+		<tr> 
+			<th>橘子</th> 
+			<td>2</td> 
+			<td>4</td> 
+		</tr> 
+	</tbody> 
+</table>
+<div id="container" style="min-width:700px;height:400px"></div> 
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+	
+    $('#container').highcharts({
+        data: {
+            table: document.getElementById('datatable')
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '从HTML的table抓取数据并绘图'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Units'
+            }
+        },
+        tooltip: {
+            formatter: function() {
+                return '<b>'+ this.series.name +'</b><br/>'+
+                    this.y +' '+ this.x;
+            }
+        }
+    });
+});				
+</script>
+{% endblock %}

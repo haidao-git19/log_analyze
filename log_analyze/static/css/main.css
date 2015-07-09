@@ -1,0 +1,24 @@
+a { color: #337ab7 }
+h5 { color: #563d7c }
+
+body {
+  background: url("../img/grid.png") repeat-x;
+  background-attachment: fixed;
+  font-family:"ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+}
+
+body .navbar {
+    font-size: 13px;
+}
+
+.bs-docs-footer {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+  font-size: 10px;
+}
+.bs-docs-footer-links {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}

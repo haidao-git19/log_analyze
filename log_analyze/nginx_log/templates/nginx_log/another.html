@@ -1,0 +1,86 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+<title>小展示2</title>
+{% endblock %}
+{% block content %}
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<h3 class="panel-title">
+				Abspath:{{ path }}
+			</h3>
+		</div>
+		<div class="panel-body">
+		Content:
+			<ol>
+				{% for country, temperature in countryAndTemperature.iteritems %}
+				<li>{{ country }}:{{ temperature }}</li>
+				{% endfor %}
+			</ol>
+		</div>
+	</div>
+	
+	<div id="container" style="min-width:700px;height:400px"></div>
+
+{% endblock %}
+{% block script %}
+<script>
+$(function () {
+    $('#container').highcharts({
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: '月平均降雨量'
+        },
+        subtitle: {
+            text: '来源：{{path}}'
+        },
+        xAxis: {
+            categories: [
+                '一月',
+                '二月',
+                '三月',
+                '四月',
+                '五月',
+                '六月',
+                '七月',
+                '八月',
+                '九月',
+                '十月',
+                '十一月',
+                '十二月'
+            ]
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: '降雨量 (mm)'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [
+           {% for country, temperature in countryAndTemperature.iteritems %}
+	           {
+	            name: {{ country | safe }},
+	            data: {{ temperature | safe }}
+	           },
+	       {% endfor %}
+	           ]
+    });
+});	
+</script>
+{% endblock %}

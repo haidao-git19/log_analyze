@@ -20,7 +20,7 @@ class DisplayTwoView(TemplateView):
         context = super(DisplayTwoView, self).get_context_data(**kwargs)
         
         # 查找日志
-        path="/Users/kevin/Documents/workspace/log_analyze/pretreatment.log"
+        path="/Users/kevin/Desktop/pretreatment.log"
         data = {}
         
         # 读取日志

@@ -17,10 +17,16 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from home.views import HomePageView
 from nginx_log.views import DisplayTwoView, DisplayOneView
+from saltstack.views import SaltTestView, ajax_get_minion_statu
 
 urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^dashboard/1', DisplayOneView.as_view(), name='display1'),
     url(r'^dashboard/2', DisplayTwoView.as_view(), name='display2'),
+    url(r'^salttest/', SaltTestView.as_view(), name='display3'),
+]
+
+urlpatterns += [
+    url(r'^saltajaxtest/', ajax_get_minion_statu, name='ajax_get_minion_statu'),
 ]

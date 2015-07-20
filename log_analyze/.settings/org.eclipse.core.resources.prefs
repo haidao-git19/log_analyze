@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//nginx_log/views.py=utf-8
+encoding//saltstack/saltapi.py=utf-8
+encoding//saltstack/views.py=utf-8

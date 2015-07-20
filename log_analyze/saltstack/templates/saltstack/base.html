@@ -1,0 +1,64 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+<title>小展示1</title>
+{% endblock %}
+{% block content %}
+<div class="container">
+   <div class="row" id="testping">
+     <div class="col-md-3">
+     
+       <div class="panel panel-primary">
+         <div class="panel-heading"><i class="icon-spinner"></i>
+           manage.status
+         </div>
+         <div class="panel-body">
+     		{{ manage_status }}
+         </div>
+         <div class="panel-footer">minions 状态</div>
+       </div>
+       <div class="panel panel-primary">
+         <div class="panel-heading"><i class="icon-spinner"></i>
+           grains.item IPV4
+         </div>
+         <div class="panel-body">
+     		{{ grains }}
+         </div>
+         <div class="panel-footer">Panel footer</div>
+       </div>
+       
+     </div>
+     <div class="col-md-9">
+     
+       <!-- minion status -->
+       <div class="panel panel-default">
+         <div class="panel-heading"><i class="icon-magic"></i>
+           manage.status
+           <a id="status" class="btn btn-sm btn-outline pull-right"><i class="icon-refresh"></i></a>
+         </div>
+         <div class="panel-body">
+           <div id="minion_status">AJAX获取，请点击右上角动态获取minion状态</div>
+         </div>
+         <div class="panel-footer">操作系统（资产管理）</div>
+       </div>
+       
+     </div>
+   </div><!-- row -->
+</div><!-- container -->
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#status').click(function() {
+    $(this).children('i').addClass('icon-spin');
+    $.getJSON("{% url 'ajax_get_minion_statu' %}", function(json){
+      document.getElementById("minion_status").innerHTML = JSONTree.create(json);
+      $('#status').children('i').removeClass('icon-spin');
+    });
+  });
+});
+  var minion_grains_json={{ grains|safe }}
+  document.getElementById("minion_grains").innerHTML = JSONTree.create(minion_grains_json);
+</script>
+{% endblock %}

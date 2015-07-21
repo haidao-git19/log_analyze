@@ -73,9 +73,14 @@
 									例子四
 								</dt>
 								<dd>
-									salt-api的基本封装使用，建议：资产管理，状态查询，批量运维等使用rundeck可以构建、保存、查看执行过程与结果
+									salt-api的基本封装使用，建议：资产管理，状态查询使用web界面
+								</dd>
+								<dd>
+									而批量运维等需要流程化的使用rundeck，可以构建、保存、查看执行过程与结果
 								</dd>
 							</dl>
+							
+							<img src={% static "img/demo.png" %} alt="run.cmd"></img>
 						</div>
 					</div>
 					{% endblock %}
@@ -91,23 +96,23 @@
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button> <a class="navbar-brand active" href="{% url "home" %}">
 						<!-- <img src="{% static "img/logo.png" %}"> -->
-						日志分析<i class="icon-signal"></i>
+						<i class="icon-leaf" style="color:green"></i> DEMO-PAGE
 					</a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="{% if current_page == 'home' %}active{% endif %}">
-							<a href="{% url "home" %}">首页</a>
+							<a href="{% url "home" %}"><i class="icon-list-ul" style="color:green"></i> 首页</a>
 						</li>
 						<li class="{% if current_page == 'display1' %}active{% endif %}">
-							<a href={% url "display1" %}>例子一</a>
+							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> 例子一</a>
 						</li>
 						<li class="{% if current_page == 'display2' %}active{% endif %}">
-							<a href={% url "display2" %}>例子二</a>
+							<a href={% url "display2" %}><i class="icon-ok" style="color:green"></i> 例子二</a>
 						</li>
 						<li class="{% if current_page == 'display3' %}active{% endif %}">
-							<a href={% url "display3" %}>例子三</a>
+							<a href={% url "display3" %}><i class="icon-ok" style="color:green"></i> 例子三</a>
 						</li>
 					</ul>	
 					<ul class="nav navbar-nav navbar-right">
@@ -146,7 +151,7 @@
 	
 	    <!-- <p class="pull-left"><a href="mailto:GAOYUAN739@pingan.com.cn" target="_top">@GAOYUAN739</a></p> -->
 	    <ul class="bs-docs-footer-links text-muted">
-	      <li>当前版本： v1.0.2</li>
+	      <li>当前版本： v1.1.2</li>
 	      <li>·</li>
 	      <li class="icon-envelope"><a href="mailto:nauy2011@126.com" target="_top">  Kevin yuan</a></li>
 	      <!-- 
@@ -171,7 +176,10 @@
 	<script type="text/javascript" src={% static "highcharts/highcharts-3d.js" %}></script>
 	<script type="text/javascript" src={% static "highcharts/data.js" %}></script>
     <script type="text/javascript" src={% static "js/jsontree.min.js" %}></script>
-	
+<script>
+//首页图片自适应
+$("img").addClass("carousel-inner img-responsive img-rounded");
+</script>
   {% block script %}
   {% endblock %}
   </body>

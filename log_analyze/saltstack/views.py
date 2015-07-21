@@ -29,11 +29,12 @@ class SaltTestView(TemplateView):
         context['current_page'] = "display3"
         return context
 
-@csrf_exempt
+
 def ajax_get_minion_statu(request):
     sapi = saltAPI()
-    manage_status_param = {'client':'local', 'fun':'grains.item', 'arg': 'osfinger', 'tgt':'*'}
+    manage_status_param = {'client':'local', 'fun':'grains.item', 'arg': 'pythonpath', 'tgt':'*'}
     manage_status = sapi.saltCmd(manage_status_param)
+    print manage_status
     return HttpResponse(manage_status, content_type='application/json')
 
 

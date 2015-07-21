@@ -9,22 +9,22 @@
      <div class="col-md-3">
      
        <div class="panel panel-primary">
-         <div class="panel-heading"><i class="icon-spinner"></i>
-           manage.status
+         <div class="panel-heading"><i class="icon-cog icon-spin"></i>
+           test.ping
          </div>
          <div class="panel-body">
      		{{ manage_status }}
          </div>
-         <div class="panel-footer">minions 状态</div>
+         <div class="panel-footer">minions 状态管理</div>
        </div>
        <div class="panel panel-primary">
-         <div class="panel-heading"><i class="icon-spinner"></i>
+         <div class="panel-heading"><i class="icon-cog icon-spin"></i>
            grains.item IPV4
          </div>
          <div class="panel-body">
      		{{ grains }}
          </div>
-         <div class="panel-footer">Panel footer</div>
+         <div class="panel-footer">IP 管理</div>
        </div>
        
      </div>
@@ -58,7 +58,7 @@ $(document).ready(function() {
     });
   });
 });
-  var minion_grains_json={{ grains|safe }}
-  document.getElementById("minion_grains").innerHTML = JSONTree.create(minion_grains_json);
+  //var minion_grains_json={{ grains|safe }}
+  //document.getElementById("minion_grains").innerHTML = JSONTree.create(minion_grains_json);
 </script>
 {% endblock %}

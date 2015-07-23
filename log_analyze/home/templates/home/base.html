@@ -111,11 +111,14 @@
 						<li class="{% if current_page == 'display2' %}active{% endif %}">
 							<a href={% url "display2" %}><i class="icon-ok" style="color:green"></i> log2graph</a>
 						</li>
-						<li class="{% if current_page == 'display3' %}active{% endif %}">
-							<a href={% url "display3" %}><i class="icon-ok" style="color:green"></i> saltstack</a>
+						<li class="{% if current_page == 'display3' %}active{% endif %} disabled">
+							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> saltstack</a>
 						</li>
-						<li class="{% if current_page == 'display4' %}active{% endif %}">
-							<a href={% url "display4" %}><i class="icon-ok" style="color:green"></i> zabbix</a>
+						<li class="{% if current_page == 'display4' %}active{% endif %} disabled">
+							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> zabbix</a>
+						</li>
+						<li class="{% if current_page == 'display5' %}active{% endif %}">
+							<a href={% url "display5" %}><i class="icon-ok" style="color:green"></i> jqGrid</a>
 						</li>
 					</ul>	
 					<ul class="nav navbar-nav navbar-right">

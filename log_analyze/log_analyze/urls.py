@@ -17,18 +17,21 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from home.views import HomePageView
 from nginx_log.views import DisplayTwoView, DisplayOneView
-from saltstack.views import SaltTestView, ajax_get_minion_statu
-from zabbix.views import ZabbixDemoView
+#from saltstack.views import SaltTestView, ajax_get_minion_statu
+#from zabbix.views import ZabbixDemoView
+from amazingTable.views import jqGridDemoView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^dashboard/1', DisplayOneView.as_view(), name='display1'),
     url(r'^dashboard/2', DisplayTwoView.as_view(), name='display2'),
-    url(r'^saltDemo/', SaltTestView.as_view(), name='display3'),
-    url(r'^zabbixDemo/', ZabbixDemoView.as_view(), name='display4'),
+    #url(r'^saltDemo/', SaltTestView.as_view(), name='display3'),
+    #url(r'^zabbixDemo/', ZabbixDemoView.as_view(), name='display4'),
+    url(r'^jqGridDemo/', jqGridDemoView.as_view(), name='display5'),
 ]
 
+#AJAX
 urlpatterns += [
-    url(r'^saltajaxtest/', ajax_get_minion_statu, name='ajax_get_minion_statu'),
+#    url(r'^saltajaxtest/', ajax_get_minion_statu, name='ajax_get_minion_statu'),
 ]

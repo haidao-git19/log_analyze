@@ -25,7 +25,7 @@ SECRET_KEY = '5ivyn8x(ol9x)wwfa#2l5&23jahx7y0jx0x3$w!l43e%k@xi0$'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,8 +40,9 @@ INSTALLED_APPS = (
     'log_analyze',
     'home',
     'nginx_log',
-    'saltstack',
-    'zabbix',
+    #'saltstack',
+    #'zabbix',
+    'amazingTable',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -67,16 +67,16 @@
 									例子三
 								</dt>
 								<dd>
-									zabbix-api的基本使用（未封装）
+									salt-api的基本封装使用，建议：资产管理，状态查询使用web界面
+								</dd>
+								<dd>
+									而批量运维等需要流程化的使用rundeck，可以构建、保存、查看执行过程与结果
 								</dd>
 								<dt>
 									例子四
 								</dt>
 								<dd>
-									salt-api的基本封装使用，建议：资产管理，状态查询使用web界面
-								</dd>
-								<dd>
-									而批量运维等需要流程化的使用rundeck，可以构建、保存、查看执行过程与结果
+									zabbix-api的基本使用（未封装）绘图
 								</dd>
 							</dl>
 							
@@ -96,7 +96,7 @@
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button> <a class="navbar-brand active" href="{% url "home" %}">
 						<!-- <img src="{% static "img/logo.png" %}"> -->
-						<i class="icon-leaf" style="color:green"></i> DEMO-PAGE
+						<i class="icon-leaf" style="color:green"></i> DEMO-API
 					</a>
 				</div>
 				
@@ -106,13 +106,16 @@
 							<a href="{% url "home" %}"><i class="icon-list-ul" style="color:green"></i> 首页</a>
 						</li>
 						<li class="{% if current_page == 'display1' %}active{% endif %}">
-							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> 例子一</a>
+							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> database2graph</a>
 						</li>
 						<li class="{% if current_page == 'display2' %}active{% endif %}">
-							<a href={% url "display2" %}><i class="icon-ok" style="color:green"></i> 例子二</a>
+							<a href={% url "display2" %}><i class="icon-ok" style="color:green"></i> log2graph</a>
 						</li>
 						<li class="{% if current_page == 'display3' %}active{% endif %}">
-							<a href={% url "display3" %}><i class="icon-ok" style="color:green"></i> 例子三</a>
+							<a href={% url "display3" %}><i class="icon-ok" style="color:green"></i> saltstack</a>
+						</li>
+						<li class="{% if current_page == 'display4' %}active{% endif %}">
+							<a href={% url "display4" %}><i class="icon-ok" style="color:green"></i> zabbix</a>
 						</li>
 					</ul>	
 					<ul class="nav navbar-nav navbar-right">

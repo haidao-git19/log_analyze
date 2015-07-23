@@ -18,13 +18,15 @@ from django.contrib import admin
 from home.views import HomePageView
 from nginx_log.views import DisplayTwoView, DisplayOneView
 from saltstack.views import SaltTestView, ajax_get_minion_statu
+from zabbix.views import ZabbixDemoView
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     url(r'^$', HomePageView.as_view(), name='home'),
     url(r'^dashboard/1', DisplayOneView.as_view(), name='display1'),
     url(r'^dashboard/2', DisplayTwoView.as_view(), name='display2'),
-    url(r'^salttest/', SaltTestView.as_view(), name='display3'),
+    url(r'^saltDemo/', SaltTestView.as_view(), name='display3'),
+    url(r'^zabbixDemo/', ZabbixDemoView.as_view(), name='display4'),
 ]
 
 urlpatterns += [

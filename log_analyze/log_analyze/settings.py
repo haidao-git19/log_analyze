@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'home',
     'nginx_log',
     'saltstack',
+    'zabbix',
 )
 
 MIDDLEWARE_CLASSES = (

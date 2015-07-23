@@ -1,0 +1,18 @@
+{% extends 'home/base.html' %}
+
+{% block title %}
+<title>zabbix绘图</title>
+{% endblock %}
+{% block content %}
+<h5>通过API在后端获取token认证，获取zabbix历史数据通过图表展现（未完成）</h5>
+<br>
+<h5>认证串</h5>
+{{ token }}
+<br>
+<h5>历史数据（未格式化）</h5>
+{{ history }}
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

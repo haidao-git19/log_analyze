@@ -30,8 +30,7 @@ urlpatterns = [
     #url(r'^zabbixDemo/', ZabbixDemoView.as_view(), name='display4'),
     url(r'^jqGridDemo/', jqGridDemoView.as_view(), name='display5'),
 ]
-
 #AJAX
-urlpatterns += [
+#urlpatterns += [
 #    url(r'^saltajaxtest/', ajax_get_minion_statu, name='ajax_get_minion_statu'),
-]
+#]

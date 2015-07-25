@@ -1,11 +1,16 @@
 {% extends 'home/base.html' %}
+{% load djqgrid %}
 
 {% block title %}
-<title>amazingTable</title>
+<title>amazingTable-index</title>
 {% endblock %}
 
 {% block content %}
 {{ time }}
+
+<div id="grid-div">
+    {% jqgrid grid %}
+</div>
 {% endblock %}
 
 {% block script %}

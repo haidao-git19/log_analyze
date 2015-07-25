@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 import datetime
 
 class jqGridDemoView(TemplateView):
-    template_name = "amazingTable/index.html"
+    template_name = "amazingTable/base.html"
     
     def get_context_data(self, **kwargs):
         context = super(jqGridDemoView, self).get_context_data(**kwargs)

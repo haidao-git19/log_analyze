@@ -21,6 +21,11 @@
     <link href="{% static "css/docs.min.css" %}" rel="stylesheet">
     <link href="{% static "datetimepicker/css/bootstrap-datetimepicker.min.css" %}" rel="stylesheet" media="screen">
     <link href="{% static "css/main.css" %}" rel="stylesheet">
+    <!-- JQuery CSS -->
+	<link rel="stylesheet" href={% static "jquery-ui-1.11.4/jquery-ui.min.css" %} type="text/css" />
+
+	<!-- jqGrid CSS -->
+	<link rel="stylesheet" href={% static "Guriddo_jqGrid_JS_4.8.2/css/ui.jqgrid.css" %} type="text/css" />
 
 {% block css %}
 {% endblock %}
@@ -182,6 +187,15 @@
 	<script type="text/javascript" src={% static "highcharts/highcharts-3d.js" %}></script>
 	<script type="text/javascript" src={% static "highcharts/data.js" %}></script>
     <script type="text/javascript" src={% static "js/jsontree.min.js" %}></script>
+    
+	<!-- The JQuery UI code -->
+	<script type="text/javascript" src={% static "jquery-ui-1.11.4/jquery-ui.min.js" %}></script>
+	<!-- The jqGrid language file code-->
+	<script type="text/javascript" src={% static "Guriddo_jqGrid_JS_4.8.2/js/i18n/grid.locale-en.js" %}></script>
+	<!-- The atual jqGrid code -->
+	<script type="text/javascript" src={% static "Guriddo_jqGrid_JS_4.8.2/js/jquery.jqGrid.src.js" %}></script>
+	<!-- The djqgrid needed -->
+    <script type="text/javascript" src={% static "js/djqgrid_utils.js" %}></script>
 <script>
 //首页图片自适应
 $("img").addClass("carousel-inner img-responsive img-rounded");

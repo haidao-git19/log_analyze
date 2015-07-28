@@ -1,5 +1,4 @@
 {% extends 'home/base.html' %}
-{% load djqgrid %}
 
 {% block title %}
 <title>amazingTable-index</title>
@@ -8,11 +7,29 @@
 {% block content %}
 {{ time }}
 
-<div id="grid-div">
-    {% jqgrid grid %}
+<div id="mygrid">
 </div>
 {% endblock %}
 
 {% block script %}
-
+<script>
+$(document).ready(function () {
+            $("#jqGrid").jqGrid({
+                alert("asd"),
+                url: {% url "serializerModule" %},
+                mtype: "GET",
+                datatype: "json",
+                colModel: [
+                    { label: 'OrderID', name: 'OrderID', key: true, width: 75 },
+                    { label: 'Customer ID', name: 'CustomerID', width: 150 },
+                ],
+    			viewrecords: true,
+                width: 780,
+                height: 250,
+                rowNum: 20,
+                pager: "#jqGridPager",
+                alert("asd")
+            });
+});
+</script>
 {% endblock %}

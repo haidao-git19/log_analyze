@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 from django.core.urlresolvers import reverse
+from matplotlib.cbook import unique
 
 NAME_CHOICES = (
     ('XQ', r'需求'),
@@ -37,6 +38,10 @@ class Content(models.Model):
     def get_absolute_url(self):
         return reverse("PM:list_content")
     
+    def natural_key(self):
+        return (self.name,) + self.module.natural_key()
+    natural_key.dependencies = ['amazingTable.module']
+    
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="项目名")
     description = models.CharField(max_length=100, blank=True, null=True, verbose_name="描述")
@@ -49,10 +54,22 @@ class Project(models.Model):
     class Meta:
         ordering = ('-add_date',)
 
+class ModuleManager(models.Manager):
+    def get_by_natural_key(self, name, description):
+        return self.get(name = name, description = description)
+        
 class Module(models.Model):
+    objects = ModuleManager()
     name = models.CharField(max_length=100, unique=True)
     description = models.CharField(max_length=100, blank=True, null=True)
     
+    
+    def natural_key(self):
+        return (self.name)
+    
+    class Meta:
+        unique_together = (('name'),)
+        
     def __unicode__(self):
         return self.name
     def get_success_url(self):
@@ -71,3 +88,6 @@ class Version(models.Model):
         return reverse("PM:list_version")
     class Meta:
         ordering = ('-add_date',)
+
+    def natural_key(self):
+        return (self.name)

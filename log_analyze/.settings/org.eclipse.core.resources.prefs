@@ -1,5 +1,9 @@
 eclipse.preferences.version=1
 encoding//amazingTable/models.py=utf8
+encoding//amazingTable/serializers.py=utf8
+encoding//amazingTable/views.py=utf8
 encoding//nginx_log/views.py=utf-8
 encoding//saltstack/saltapi.py=utf-8
 encoding//saltstack/views.py=utf-8
+encoding//snippets/views.py=utf8
+encoding//snippets/views_1.py=utf8

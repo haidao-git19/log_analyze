@@ -5,35 +5,95 @@
 {% endblock %}
 
 {% block content %}
-{{ time }}
- <table id="jqGrid"></table>
- <div id="jqGridPager"></div>
-
-
-
+	时间：{{ time }}
+	<br>
+	<span class="label label-primary">通过url获取网络上的json</span>
+	<table id="jqGrid"></table>
+	<div id="jqGridPager"></div>
+	
+	
+	
+	<span class="label label-primary">通过自己定义的序列器获取json</span>
+	<span class="label label-primary">autowidth: true,</span>
+	<table id="ModulejqGrid"></table>
+	<div id="ModulejqGridPager"></div>
+	
+	<span class="label label-primary">通过框架生成的API操作</span>
+	<table id="rest_framework"></table>
+	<div id="rest_frameworkPager"></div>
+	
 {% endblock %}
 
 {% block script %}
     <script type="text/javascript"> 
-        $(document).ready(function () {
-            $("#jqGrid").jqGrid({
-                url: 'http://trirand.com/blog/phpjqgrid/examples/jsonp/getjsonp.php?callback=?&qwery=longorders',
-                mtype: "GET",
-                datatype: "jsonp",
-                colModel: [
-                    { label: 'OrderID', name: 'OrderID', key: true, width: 75 },
-                    { label: 'Customer ID', name: 'CustomerID', width: 150 },
-                    { label: 'Order Date', name: 'OrderDate', width: 150 },
-                    { label: 'Freight', name: 'Freight', width: 150 },
-                    { label:'Ship Name', name: 'ShipName', width: 150 }
-                ],
-				viewrecords: true,
-                width: 780,
-                height: 250,
-                rowNum: 20,
-                pager: "#jqGridPager"
-            });
+    $(document).ready(function () {
+        $("#jqGrid").jqGrid({
+            url: 'http://trirand.com/blog/phpjqgrid/examples/jsonp/getjsonp.php?callback=?&qwery=longorders',
+            mtype: "GET",
+            datatype: "json",
+            colModel: [
+                { label: 'OrderID', name: 'OrderID', key: true, width: 75 },
+                { label: 'Customer ID', name: 'CustomerID', width: 150 },
+                { label: 'Order Date', name: 'OrderDate', width: 150 },
+                { label: 'Freight', name: 'Freight', width: 150 },
+                { label:'Ship Name', name: 'ShipName', width: 150 }
+            ],
+			viewrecords: true,
+            width: 780,
+            height: 250,
+            rowNum: 20,
+            pager: "#jqGridPager",
+            caption:"从外网获得数据"
         });
- 
+    });
+    $(document).ready(function () {
+        $("#ModulejqGrid").jqGrid({
+            url: {% url "serializerModule" %},
+            mtype: "GET",
+            datatype: "json",
+            colNames:['需求ss', '模块', '产品经理','开发','计划版本','实际版本'],
+            colModel: [
+                { name: 'fields.name', width: 150, align:"center" },
+                { name: 'fields.module', width: 150, align:"center" },
+                { name: 'fields.product_manager', width: 150, align:"center" },
+                { name: 'fields.developer', width: 150, align:"center" },
+                { name: 'fields.plan_version', width: 150, align:"center" },
+                { name: 'fields.actual_version', width: 150, align:"center" },
+            ],
+            autowidth: true,
+            rownumbers:true,
+            height: 250,
+            rowNum: 20,
+            pager: "#ModulejqGridPager",
+            caption:"从自定义序列器取得数据"
+        });
+    });
+    $(document).ready(function () {
+        $("#rest_framework").jqGrid({
+            url: "http://127.0.0.1:8000/contents/.json",
+            mtype: "GET",
+            datatype: "json",
+            colNames:['需求ss', '模块', '产品经理','开发','计划版本','实际版本'],
+            colModel: [
+                { name: 'name', width: 150, align:"center", sortable:false},
+                { name: 'module', width: 150, align:"center" },
+                { name: 'fields.product_manager', width: 150, align:"center" },
+                { name: 'fields.developer', width: 150, align:"center" },
+                { name: 'fields.plan_version', width: 150, align:"center" },
+                { name: 'fields.actual_version', width: 150, align:"center" },
+            ],
+            jsonReader: {
+            	root:"results",
+            	page: "page",
+            	
+                repeatitems : false
+            },
+            autowidth: true,
+            height: 250,
+            rowNum: 20,
+            pager: "#rest_frameworkPager",
+            caption:"From rest_framwork"
+        });
+    });
    </script>
 {% endblock %}

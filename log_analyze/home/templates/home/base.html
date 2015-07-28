@@ -101,29 +101,29 @@
 						 <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button> <a class="navbar-brand active" href="{% url "home" %}">
 						<!-- <img src="{% static "img/logo.png" %}"> -->
-						<i class="icon-leaf" style="color:green"></i> DEMO-API
+						<i class="icon-leaf" style="color:#1c94c4"></i> DEMO-API
 					</a>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li class="{% if current_page == 'home' %}active{% endif %}">
-							<a href="{% url "home" %}"><i class="icon-list-ul" style="color:green"></i> 首页</a>
+							<a href="{% url "home" %}"><i class="icon-list-ul" style="color:#1c94c4n"></i> 首页</a>
 						</li>
 						<li class="{% if current_page == 'display1' %}active{% endif %}">
-							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> database2graph</a>
+							<a href={% url "display1" %}><i class="icon-ok" style="color:#1c94c4"></i> database2graph</a>
 						</li>
 						<li class="{% if current_page == 'display2' %}active{% endif %}">
-							<a href={% url "display2" %}><i class="icon-ok" style="color:green"></i> log2graph</a>
+							<a href={% url "display2" %}><i class="icon-ok" style="color:#1c94c4"></i> log2graph</a>
 						</li>
 						<li class="{% if current_page == 'display3' %}active{% endif %} disabled">
-							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> saltstack</a>
+							<a href={% url "display1" %}><i class="icon-ok" style="color:#1c94c4"></i> saltstack</a>
 						</li>
 						<li class="{% if current_page == 'display4' %}active{% endif %} disabled">
-							<a href={% url "display1" %}><i class="icon-ok" style="color:green"></i> zabbix</a>
+							<a href={% url "display1" %}><i class="icon-ok" style="color:#1c94c4"></i> zabbix</a>
 						</li>
 						<li class="{% if current_page == 'display5' %}active{% endif %}">
-							<a href={% url "display5" %}><i class="icon-ok" style="color:green"></i> jqGrid</a>
+							<a href={% url "display5" %}><i class="icon-ok" style="color:#1c94c4"></i> jqGrid</a>
 						</li>
 					</ul>	
 					<ul class="nav navbar-nav navbar-right">
@@ -194,8 +194,6 @@
 	<script type="text/javascript" src={% static "Guriddo_jqGrid_JS_4.8.2/js/i18n/grid.locale-en.js" %}></script>
 	<!-- The atual jqGrid code -->
 	<script type="text/javascript" src={% static "Guriddo_jqGrid_JS_4.8.2/js/jquery.jqGrid.src.js" %}></script>
-	<!-- The djqgrid needed -->
-    <script type="text/javascript" src={% static "js/djqgrid_utils.js" %}></script>
 <script>
 //首页图片自适应
 $("img").addClass("carousel-inner img-responsive img-rounded");

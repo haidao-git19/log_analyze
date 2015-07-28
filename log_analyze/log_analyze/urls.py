@@ -19,16 +19,33 @@ from home.views import HomePageView
 from nginx_log.views import DisplayTwoView, DisplayOneView
 #from saltstack.views import SaltTestView, ajax_get_minion_statu
 #from zabbix.views import ZabbixDemoView
-from amazingTable.views import jqGridDemoView
+from amazingTable.views import jqGridDemoView, serializerModule
+
+from snippets import views
+from rest_framework.routers import DefaultRouter
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
-    url(r'^$', HomePageView.as_view(), name='home'),
+    url(r'^home/$', HomePageView.as_view(), name='home'),
     url(r'^dashboard/1', DisplayOneView.as_view(), name='display1'),
     url(r'^dashboard/2', DisplayTwoView.as_view(), name='display2'),
     #url(r'^saltDemo/', SaltTestView.as_view(), name='display3'),
     #url(r'^zabbixDemo/', ZabbixDemoView.as_view(), name='display4'),
     url(r'^jqGridDemo/', jqGridDemoView.as_view(), name='display5'),
+    url(r'^testSerializer/', serializerModule, name='serializerModule'),
+    
+    # 
+    url(r'^at/', include('amazingTable.urls')),
+]
+
+router = DefaultRouter()
+router.register(r'snippets', views.SnippetViewSet)
+router.register(r'users', views.UserViewSet)
+router.register(r'contents', views.ContentViewSet)
+
+urlpatterns += [
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 #AJAX
 #urlpatterns += [

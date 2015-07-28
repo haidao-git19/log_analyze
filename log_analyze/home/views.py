@@ -11,4 +11,3 @@ class HomePageView(TemplateView):
         context['time'] =  datetime.datetime.now()
         context['current_page'] = "home"
         return context
-    

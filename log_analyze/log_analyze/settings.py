@@ -37,12 +37,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'log_analyze',
     'home',
     'nginx_log',
     #'saltstack',
     #'zabbix',
     'amazingTable',
+    'snippets',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,3 +112,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+# ----------rest-framework
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 5
+}

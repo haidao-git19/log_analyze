@@ -288,6 +288,7 @@
         toolbarAlign: 'left',
         checkboxHeader: true,
         sortable: true,
+        silentSort: true,
         maintainSelected: false,
         searchTimeOut: 500,
         searchText: '',
@@ -392,31 +393,31 @@
 
     BootstrapTable.LOCALES['en-US'] = BootstrapTable.LOCALES['en'] = {
         formatLoadingMessage: function () {
-            return 'Loading, please wait...';
+            return '正在努力地加载数据中，请稍候……';
         },
         formatRecordsPerPage: function (pageNumber) {
-            return sprintf('%s records per page', pageNumber);
+            return sprintf('每页 %s 条', pageNumber);
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+            return sprintf('第 %s 到 %s 条 总共 %s 条记录', pageFrom, pageTo, totalRows);
         },
         formatSearch: function () {
-            return 'Search';
+            return '搜索';
         },
         formatNoMatches: function () {
-            return 'No matching records found';
+            return '没有找到匹配的记录';
         },
         formatPaginationSwitch: function () {
-            return 'Hide/Show pagination';
+            return '隐藏/显示分页';
         },
         formatRefresh: function () {
-            return 'Refresh';
+            return '刷新';
         },
         formatToggle: function () {
-            return 'Toggle';
+            return '切换';
         },
         formatColumns: function () {
-            return 'Columns';
+            return '列';
         },
         formatAllRows: function () {
             return 'All';
@@ -450,6 +451,7 @@
         sortName: undefined,
         cellStyle: undefined,
         searchable: true,
+        searchFormatter: true,
         cardVisible: true
     };
 
@@ -640,7 +642,6 @@
             sorters: [],
             sortNames: [],
             cellStyles: [],
-            clickToSelects: [],
             searchables: []
         };
 
@@ -687,7 +688,6 @@
                     that.header.sorters[column.fieldIndex] = column.sorter;
                     that.header.sortNames[column.fieldIndex] = column.sortName;
                     that.header.cellStyles[column.fieldIndex] = column.cellStyle;
-                    that.header.clickToSelects[column.fieldIndex] = column.clickToSelect;
                     that.header.searchables[column.fieldIndex] = column.searchable;
 
                     if (!column.visible) {
@@ -879,7 +879,7 @@
         this.getCaret();
 
         if (this.options.sidePagination === 'server') {
-            this.initServer();
+            this.initServer(this.options.silentSort);
             return;
         }
 
@@ -1077,8 +1077,10 @@
                         j = $.inArray(key, that.header.fields);
 
                     // Fix #142: search use formated data
-                    value = calculateObjectValue(column,
-                        that.header.formatters[j], [value, item, i], value);
+                    if (column && column.searchFormatter) {
+                        value = calculateObjectValue(column,
+                            that.header.formatters[j], [value, item, i], value);
+                    }
 
                     var index = $.inArray(key, that.header.fields);
                     if (index !== -1 && that.header.searchables[index] && (typeof value === 'string' || typeof value === 'number')) {
@@ -1535,20 +1537,23 @@
             var $td = $(this),
                 $tr = $td.parent(),
                 item = that.data[$tr.data('index')],
-                cellIndex = $td[0].cellIndex,
-                $headerCell = that.$header.find('th:eq(' + cellIndex + ')'),
-                field = $headerCell.data('field'),
+                index = $td[0].cellIndex,
+                field = that.header.fields[that.options.detailView && !that.options.cardView ? index - 1 : index],
+                colomn = that.columns[getFieldIndex(that.columns, field)],
                 value = item[field];
+
+            if ($td.find('.detail-icon').length) {
+                return;
+            }
 
             that.trigger(e.type === 'click' ? 'click-cell' : 'dbl-click-cell', field, value, item, $td);
             that.trigger(e.type === 'click' ? 'click-row' : 'dbl-click-row', item, $tr);
+
             // if click to select - then trigger the checkbox/radio click
-            if (e.type === 'click' && that.options.clickToSelect) {
-                if (that.header.clickToSelects[$tr.children().index($(this))]) {
-                    var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
-                    if ($selectItem.length) {
-                        $selectItem[0].click(); // #144: .trigger('click') bug
-                    }
+            if (e.type === 'click' && that.options.clickToSelect && colomn.clickToSelect) {
+                var $selectItem = $tr.find(sprintf('[name="%s"]', that.options.selectItemName));
+                if ($selectItem.length) {
+                    $selectItem[0].click(); // #144: .trigger('click') bug
                 }
             }
         });
@@ -1729,7 +1734,7 @@
         this.$selectAll.add(this.$selectAll_).prop('checked', checkAll);
 
         this.$selectItem.each(function () {
-            $(this).parents('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
+            $(this).closest('tr')[$(this).prop('checked') ? 'addClass' : 'removeClass']('selected');
         });
     };
 
@@ -1747,7 +1752,9 @@
         $.each(this.data, function (i, row) {
             that.$selectAll.prop('checked', false);
             that.$selectItem.prop('checked', false);
-            row[that.header.stateField] = false;
+            if (that.header.stateField) {
+                row[that.header.stateField] = false;
+            }
         });
     };
 
@@ -1818,6 +1825,10 @@
         // TODO: it's probably better improving the layout than binding to scroll event
         this.$tableBody.off('scroll').on('scroll', function () {
             that.$tableHeader.scrollLeft($(this).scrollLeft());
+
+            if (that.options.showFooter && !that.options.cardView) {
+                that.$tableFooter.scrollLeft($(this).scrollLeft());
+            }
         });
         that.trigger('post-header');
     };
@@ -1832,7 +1843,7 @@
         }
 
         if (!this.options.cardView && this.options.detailView) {
-            html.push('<td></td>');
+            html.push('<td><div class="th-inner">&nbsp;</div><div class="fht-cell"></div></td>');
         }
 
         $.each(this.columns, function (i, column) {
@@ -1852,8 +1863,13 @@
             style = sprintf('vertical-align: %s; ', column.valign);
 
             html.push('<td', class_, sprintf(' style="%s"', falign + style), '>');
+            html.push('<div class="th-inner">');
 
             html.push(calculateObjectValue(column, column.footerFormatter, [data], '&nbsp;') || '&nbsp;');
+
+            html.push('</div>');
+            html.push('<div class="fht-cell"></div>');
+            html.push('</div>');
             html.push('</td>');
         });
 
@@ -1885,8 +1901,10 @@
 
         $footerTd = this.$tableFooter.find('td');
 
-        this.$tableBody.find('tbody tr:first-child:not(.no-records-found) > td').each(function (i) {
-            $footerTd.eq(i).outerWidth($(this).outerWidth());
+        this.$body.find('tr:first-child:not(.no-records-found) > *').each(function (i) {
+            var $this = $(this);
+
+            $footerTd.eq(i).find('.fht-cell').width($this.innerWidth());
         });
     };
 
@@ -1976,7 +1994,7 @@
         if (this.options.showFooter) {
             this.resetFooter();
             if (this.options.height) {
-                padding += this.$tableFooter.outerHeight();
+                padding += this.$tableFooter.outerHeight() + 1;
             }
         }
 
